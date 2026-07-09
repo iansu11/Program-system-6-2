@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>解題系統 V77-8 (版面整合版)</title>
+    <title>解題系統 V79-7 </title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
@@ -2621,7 +2621,7 @@
     async function loadCustomBank(idx) {
         // 🚀 UI 防呆：加入載入中動畫並鎖定全域按鈕，防止重複點擊
         const container = document.getElementById('customBankList');
-        const cards = container.querySelectorAll('.bank-btn');
+        const cards = container.querySelectorAll('.saas-card');
         let clickedCard = null;
         let originalContent = "";
         
@@ -2630,7 +2630,11 @@
                 clickedCard = card.querySelector('div[onclick]');
                 if (clickedCard) {
                     originalContent = clickedCard.innerHTML;
-                    clickedCard.innerHTML = `<span style="font-size:1.5rem; font-weight:bold;">⏳ 載入中...</span><span class="bank-desc" style="color: inherit;">儲存並切換題庫</span>`;
+                    clickedCard.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center;">
+                        <div class="card-icon-box bg-blue" style="margin:0 auto 10px auto;"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                        <h3 style="margin:0 0 5px 0;">載入中...</h3>
+                        <p style="margin:0;">儲存並切換題庫</p>
+                    </div>`;
                 }
             }
             card.style.pointerEvents = 'none';
@@ -2703,14 +2707,18 @@
         if (toast) toast.style.display = 'none'; 
         
         // 🚀 UI 防呆：加入載入中動畫並鎖定全域按鈕
-        const buttons = document.querySelectorAll('.bank-btn');
+        const buttons = document.querySelectorAll('.saas-card');
         let clickedBtn = null;
         let originalContent = "";
         buttons.forEach(btn => {
             if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(jsonUrl)) {
                 clickedBtn = btn;
                 originalContent = btn.innerHTML;
-                btn.innerHTML = `<span style="font-size: 1.5rem; font-weight:bold;">⏳ 載入中...</span><span class="bank-desc">同步雲端資料</span>`;
+                btn.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center;">
+                    <div class="card-icon-box bg-blue" style="margin:0 auto 10px auto;"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                    <h3 style="margin:0 0 5px 0;">載入中...</h3>
+                    <p style="margin:0;">同步雲端資料</p>
+                </div>`;
             }
             btn.style.pointerEvents = 'none';
             btn.style.opacity = '0.6';
